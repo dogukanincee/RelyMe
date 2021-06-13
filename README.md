@@ -6,8 +6,8 @@ In the real world, we don't store our cash in plain sight. We either store it in
 
 # How to Use
   * Download "RelyMe" app in Google Play Store. 
-  * For the first run, it will ask you to create a password. So create a single password to store all your wallet informations in a single app.
+  * For the first run, it will ask you to create a password. So create a single password to store all your wallet information in a single app.
   * After successfully creating a password, you are free to use our app.
-  * You can add as many wallets as you want using 'Encrypt' button.
-  * After you create a wallet, it will list the wallet.
+  * You can add as many wallets as you want using the 'Encrypt' button.
+  * After you create a wallet, it will add the wallet to the list.
   * If you would like to see your 12-word phrase or your private key, press the decrypt button and enter the wallet label you want to decrypt.
