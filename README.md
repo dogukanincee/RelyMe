@@ -1,2 +1,2 @@
-# SafeShibaDogeMoonInu
-SafeShibaDogeMoonInu
+# RelyMe
+RelyMe
