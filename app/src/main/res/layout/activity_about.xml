@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+
+    <include
+        layout="@layout/app_bar_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cs_lay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="400dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:contentDescription="@string/logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/logo" />
+
+        <ImageView
+            android:id="@+id/uni_logo"
+            android:layout_width="175dp"
+            android:layout_height="159dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="120dp"
+            android:layout_marginEnd="17dp"
+            android:layout_marginBottom="84dp"
+            app:layout_constraintBottom_toTopOf="@+id/about_title"
+            app:layout_constraintEnd_toStartOf="@+id/app_logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/akdeniz_logo" />
+
+        <ImageView
+            android:id="@+id/app_logo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="66dp"
+            android:layout_marginEnd="41dp"
+            android:layout_marginBottom="123dp"
+            app:layout_constraintBottom_toTopOf="@+id/about_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/uni_logo"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/about_title"
+            android:layout_width="331dp"
+            android:layout_height="57dp"
+            android:layout_marginStart="43dp"
+            android:layout_marginEnd="43dp"
+            android:layout_marginBottom="36dp"
+            android:fontFamily="@font/cinzel"
+            android:text="Safe Shiba Doge Moon Inu"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/about_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/uni_logo" />
+
+        <TextView
+            android:id="@+id/about_text"
+            android:layout_width="345dp"
+            android:layout_height="277dp"
+            android:layout_marginStart="33dp"
+            android:layout_marginEnd="33dp"
+            android:fontFamily="@font/cinzel"
+            android:text="Formed by\n\n Ahmet Burak KARADOĞAN - 20170808053
+    \n Muhammed ABBAS - 20170808063
+    \n Doğukan İNCE - 20170808077"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/app_logo" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_profile"
+        app:itemIconTint="#1695f0"
+        app:itemTextColor="#1695f0"
+        app:menu="@menu/activity_home2_drawer" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

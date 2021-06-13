@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "306871783633",
+    "firebase_url": "https://softwarescooterapp2020.firebaseio.com",
+    "project_id": "softwarescooterapp2020",
+    "storage_bucket": "softwarescooterapp2020.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:306871783633:android:372d1522c8458bb606b5f0",
+        "android_client_info": {
+          "package_name": "com.example.scooterapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "306871783633-rouqodt2qff4ukm8qaro7997m3batdr9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.scooterapp",
+            "certificate_hash": "8e9011f0eccdaf5e79fddf9827292fdc4743cd7b"
+          }
+        },
+        {
+          "client_id": "306871783633-qdnrn6vr227rjrmal4nalabntrrn6g11.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARh33qEyiA4az6nijW3aWOPyVZrlyDNqE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "306871783633-qdnrn6vr227rjrmal4nalabntrrn6g11.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

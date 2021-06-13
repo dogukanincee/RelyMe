@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/amiri_bold_italic</item>
+        <item>@font/cardo_bold</item>
+        <item>@font/cinzel</item>
+        <item>@font/cinzel_bold</item>
+        <item>@font/exo_semibold_italic</item>
+    </array>
+</resources>
