@@ -13,84 +13,64 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="400dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
             android:contentDescription="@string/logo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/logo" />
+            app:srcCompat="@drawable/logo"
+            android:layout_marginBottom="10dp"/>
 
         <EditText
             android:id="@+id/walletText"
-            android:layout_width="408dp"
-            android:layout_height="43dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:autofillHints=""
             android:ems="10"
             android:hint="Enter wallet key or words"
             android:inputType="text"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.333"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.072" />
+            android:layout_marginBottom="10dp"/>
 
-        <Button
-            android:id="@+id/encryptButton"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:background="@drawable/reg_btn_style"
-            android:text="Encrypt"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.061"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.16" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/decryptButton"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:background="@drawable/reg_btn_style"
-            android:text="Decrypt"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.896"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.16" />
+            <Button
+                android:id="@+id/encryptButton"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/reg_btn_style"
+                android:text="Encrypt" />
+
+            <Button
+                android:id="@+id/decryptButton"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:background="@drawable/reg_btn_style"
+                android:text="Decrypt" />
+
+        </LinearLayout>
 
         <ListView
             android:id="@+id/walletListView"
-            android:layout_width="370dp"
-            android:layout_height="530dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.487"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.92" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"

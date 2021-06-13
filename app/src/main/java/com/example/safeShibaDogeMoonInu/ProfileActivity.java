@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,8 +22,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.jaeger.library.StatusBarUtil;
 
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Objects;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 
 public class ProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -42,6 +48,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
     Integer index;
     String wallet;
+    String AES = "AES";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,29 +93,41 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         walletListView.setAdapter(arrayAdapter);
 
         encryptButton.setOnClickListener(v -> {
-            if (!(walletEditText.getText().length() <= 1)) {
-                wallet = walletEditText.getText().toString();
+            wallet = walletEditText.getText().toString();
+            if (!(wallet.length() <= 1)) {
                 //TODO: Write and store the encrypted version of wallet instead of the wallet itself
-                showMessage(wallet + " has been added");
-                walletArrayList.add(wallet);
-                arrayAdapter.notifyDataSetChanged();
-                walletEditText.setText("");
+                try {
+                    String encryptedString = encrypt(wallet, registeredPassWord);
+                    walletArrayList.add(encryptedString);
+                    arrayAdapter.notifyDataSetChanged();
+                    walletEditText.setText("");
+                    showMessage(wallet + " has been added");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
         decryptButton.setOnClickListener(v -> {
-            if (!(walletEditText.getText().length() <= 1)) {
+            wallet = walletEditText.getText().toString();
+            if (!(wallet.length() <= 1)) {
                 //TODO: Check first if the written / copied text is stored in json. Do only if it exist.
                 //TODO: Decrypt the wallet selected and update in both json and listView by directly showing the wallet
-                /*
-
-                 */
+                try {
+                    String decryptedString = decrypt(wallet, registeredPassWord);
+                    arrayAdapter.remove(walletArrayList.get(index));
+                    walletArrayList.add(decryptedString);
+                    arrayAdapter.notifyDataSetChanged();
+                    walletEditText.setText("");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
         walletListView.setOnItemClickListener((parent, view, position, id) -> {
             index = position;
-            showMessage(parent.getItemAtPosition(position).toString() + " has selected");
+            showMessage(parent.getItemAtPosition(position).toString() + " is selected");
 
             runOnUiThread(() -> {
                 walletEditText.setText(parent.getItemAtPosition(position).toString());
@@ -117,12 +136,40 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         });
 
         walletListView.setOnItemLongClickListener((parent, view, position, id) -> {
+            showMessage(parent.getItemAtPosition(position).toString() + " is deleted");
             index = position;
-            showMessage(parent.getItemAtPosition(position).toString() + " has deleted");
             arrayAdapter.remove(parent.getItemAtPosition(position).toString());
             arrayAdapter.notifyDataSetChanged();
             return false;
         });
+    }
+
+    private String decrypt(String outputString, String password) throws Exception {
+        SecretKeySpec key = generateKey(password);
+        Cipher c = Cipher.getInstance(AES);
+        c.init(Cipher.DECRYPT_MODE, key);
+        byte[] decodedValue = Base64.decode(outputString, Base64.DEFAULT);
+        byte[] decValue = c.doFinal(decodedValue);
+        String decryptedValue = new String(decValue);
+        return decryptedValue;
+    }
+
+    private String encrypt(String data, String password) throws Exception {
+        SecretKeySpec key = generateKey(password);
+        Cipher c = Cipher.getInstance(AES);
+        c.init(Cipher.ENCRYPT_MODE, key);
+        byte[] encVal = c.doFinal(data.getBytes());
+        String encryptedValue = Base64.encodeToString(encVal, Base64.DEFAULT);
+        return encryptedValue;
+    }
+
+    private SecretKeySpec generateKey(String password) throws Exception {
+        final MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] bytes = password.getBytes("UTF-8");
+        digest.update(bytes, 0, bytes.length);
+        byte[] key = digest.digest();
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key, "AES");
+        return secretKeySpec;
     }
 
     @Override

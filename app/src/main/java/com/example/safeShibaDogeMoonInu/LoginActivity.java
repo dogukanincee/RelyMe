@@ -90,9 +90,13 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
-                super.onAuthenticationSucceeded(result);
-                showMessage("Login Success with fingerprint");
-                updateUI();
+                if (registeredPassWord != null) {
+                    super.onAuthenticationSucceeded(result);
+                    showMessage("Login Success with fingerprint");
+                    updateUI();
+                }
+                else
+                    showMessage("Please Sign Up first!");
             }
 
             @Override
