@@ -1,4 +1,4 @@
-package com.example.safeShibaDogeMoonInu;
+package com.example.RelyMe;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.example.safeShibaDogeMoonInu", appContext.getPackageName());
+        assertEquals("com.example.RelyMe", appContext.getPackageName());
     }
 }

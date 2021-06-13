@@ -1,4 +1,4 @@
-package com.example.safeShibaDogeMoonInu;
+package com.example.RelyMe;
 
 import org.junit.Test;
 

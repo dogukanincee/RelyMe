@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.safeShibaDogeMoonInu">
+    package="com.example.RelyMe">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
@@ -26,20 +26,20 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name="com.example.safeShibaDogeMoonInu.SettingsActivity"
+            android:name="com.example.RelyMe.SettingsActivity"
             android:configChanges="screenSize|orientation"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.example.safeShibaDogeMoonInu.ProfileActivity"
+            android:name="com.example.RelyMe.ProfileActivity"
             android:configChanges="screenSize|orientation"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.example.safeShibaDogeMoonInu.AboutActivity"
+            android:name="com.example.RelyMe.AboutActivity"
             android:configChanges="screenSize|orientation"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name="com.example.safeShibaDogeMoonInu.SplashScreenActivity"
+            android:name="com.example.RelyMe.SplashScreenActivity"
             android:configChanges="screenSize|orientation"
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme.NoActionBar">
@@ -50,13 +50,13 @@
         </activity>
 
         <activity
-            android:name="com.example.safeShibaDogeMoonInu.RegisterActivity"
+            android:name="com.example.RelyMe.RegisterActivity"
             android:configChanges="screenSize|orientation"
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name="com.example.safeShibaDogeMoonInu.LoginActivity"
+            android:name="com.example.RelyMe.LoginActivity"
             android:configChanges="screenSize|orientation"
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme.NoActionBar" />

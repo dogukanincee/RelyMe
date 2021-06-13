@@ -1,4 +1,4 @@
-package com.example.safeShibaDogeMoonInu;
+package com.example.RelyMe;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 public class RegisterActivity extends AppCompatActivity {
 
     EditText userPassword, userPassword2;      //User Email, Password, Name fields
-    UserLocalStore userLocalStore;
     private Button regBtn, loginButton;                             //Login and register buttons
     //If all fields are filled, then register button enables
     private final TextWatcher registerTextWatcher = new TextWatcher() {
@@ -91,9 +90,14 @@ public class RegisterActivity extends AppCompatActivity {
 
     //Creates user account and starts Login Activity
     private void CreateUserAccount(String password) {
-        User registeredUser = new User(password);
+        PrefManager prefManager = new PrefManager(getApplicationContext());
+        if (!prefManager.isRegistered()) {
+            prefManager.setPassword(password);
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "This device is already registered, please login", Toast.LENGTH_SHORT).show();
+        }
         Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
-        loginActivity.putExtra("password", registeredUser.getPassword());
         startActivity(loginActivity);
         finish();
     }

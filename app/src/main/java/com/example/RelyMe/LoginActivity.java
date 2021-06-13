@@ -1,4 +1,4 @@
-package com.example.safeShibaDogeMoonInu;
+package com.example.RelyMe;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,8 +19,7 @@ import java.util.concurrent.Executor;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText userPassword;                                //User mail and password fields
-    UserLocalStore userLocalStore;
+    EditText userPassword;
     String registeredPassWord;
     private Button btnLogin, registerButton, fingerprintButton;   //Login, register and reset passwords buttons
     //If all fields are filled, then login button enables
@@ -55,14 +54,13 @@ public class LoginActivity extends AppCompatActivity {
 
         userPassword.addTextChangedListener(loginTextWatcher);
 
-        userLocalStore = new UserLocalStore(this);
+//        Intent intent = getIntent();
+//        Bundle bundle = intent.getExtras();
+        PrefManager prefManager = new PrefManager(getApplicationContext());
+        registeredPassWord = prefManager.getPassword();
 
-
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-
-        if (bundle != null)
-            registeredPassWord = (String) bundle.get("password");
+//        if (bundle != null)
+//            registeredPassWord = (String) bundle.get("password");
 
         BiometricManager biometricManager = BiometricManager.from(this);
 
@@ -121,9 +119,6 @@ public class LoginActivity extends AppCompatActivity {
 
             if (registeredPassWord != null) {
                 if (registeredPassWord.equals(userPassword.getText().toString())) {
-                    User user = new User(null);
-                    userLocalStore.storeUserData(user);
-                    userLocalStore.setUserLoggedIn(true);
                     showMessage("Successfully logged in");
                     updateUI();
                 } else {
@@ -148,7 +143,6 @@ public class LoginActivity extends AppCompatActivity {
     //Starts MapActivity
     private void updateUI() {
         Intent profile = new Intent(LoginActivity.this, ProfileActivity.class);
-        profile.putExtra("password", registeredPassWord);
         startActivity(profile);
     }
 

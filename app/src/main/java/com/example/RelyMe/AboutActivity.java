@@ -1,4 +1,4 @@
-package com.example.safeShibaDogeMoonInu;
+package com.example.RelyMe;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -31,9 +31,6 @@ public class AboutActivity extends AppCompatActivity implements NavigationView.O
     //About fields
     TextView about_title, about_text;
     ImageView uni_logo, app_logo;
-
-    UserLocalStore userLocalStore;
-    String registeredPassWord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,13 +67,6 @@ public class AboutActivity extends AppCompatActivity implements NavigationView.O
         //Checks phone permissions
         ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, PackageManager.PERMISSION_GRANTED);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PackageManager.PERMISSION_GRANTED);
-
-        userLocalStore = new UserLocalStore(this);
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-
-        if (bundle != null)
-            registeredPassWord = (String) bundle.get("password");
     }
 
 
@@ -99,12 +89,10 @@ public class AboutActivity extends AppCompatActivity implements NavigationView.O
         switch (id) {
             case R.id.nav_profile:          //If Profile field is clicked, starts ProfileActivity
                 Intent profile = new Intent(AboutActivity.this, ProfileActivity.class);
-                profile.putExtra("password", registeredPassWord);
                 startActivity(profile);
                 break;
             case R.id.nav_settings:  //If Settings field is clicked, starts SettingsActivity
                 Intent settings = new Intent(AboutActivity.this, SettingsActivity.class);
-                settings.putExtra("password", registeredPassWord);
                 startActivity(settings);
                 break;
             case R.id.nav_about:             //If About field is clicked, nothing happens
@@ -123,7 +111,6 @@ public class AboutActivity extends AppCompatActivity implements NavigationView.O
         userLocalStore.setUserLoggedIn(false);
          */
         Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
-        loginActivity.putExtra("password", registeredPassWord);
         startActivity(loginActivity);
         finish();
     }

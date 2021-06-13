@@ -1,4 +1,4 @@
-package com.example.safeShibaDogeMoonInu;
+package com.example.RelyMe;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -26,8 +26,6 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
     NavigationView navigationView;
     Toolbar toolbar;
     ActionBarDrawerToggle toggle;
-    User user;
-    UserLocalStore userLocalStore;
     //Layout fields
     private Button changePassword, changeP;   //Change Email and Change Password buttons
     private EditText newPassword;//New Password field
@@ -56,10 +54,6 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
 
         getWindow().setStatusBarColor(Color.TRANSPARENT);
 
-        userLocalStore = new UserLocalStore(this);
-
-        user = userLocalStore.getLoggedInUser();
-
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -85,7 +79,12 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
         changeP.setOnClickListener(v -> {
             if (!newPassword.getText().toString().trim().equals("")) {
                 if (!(newPassword.getText().toString().trim().length() < 6)) {
-                    signOut();
+                    if (!sameAsOldPassword(newPassword.getText().toString().trim())) {
+                        signOut();
+                    }
+                    else{
+                        newPassword.setError("Password Can't Be The Same As The Previous Password");
+                    }
                 } else {
                     newPassword.setError("Password Must Be Minimum 6 Characters");
                 }
@@ -110,19 +109,16 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        User registeredUser = new User(newPassword.getText().toString().trim());
 
         switch (id) {
             case R.id.nav_profile:          //If Profile field is clicked, starts ProfileActivity
                 Intent profile = new Intent(SettingsActivity.this, ProfileActivity.class);
-                profile.putExtra("password", registeredUser.getPassword());
                 startActivity(profile);
                 break;
             case R.id.nav_settings:         //If Settings field is clicked, nothing happens
                 break;
             case R.id.nav_about:              //If About field is clicked, starts AboutActivity
                 Intent about = new Intent(SettingsActivity.this, AboutActivity.class);
-                about.putExtra("password", registeredUser.getPassword());
                 startActivity(about);
                 break;
             case R.id.nav_sign_out:         //If Sign Out field is clicked, starts LoginActivity
@@ -133,15 +129,21 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
         return true;
     }
 
+    private boolean sameAsOldPassword(String password){
+        PrefManager prefManager = new PrefManager(getApplicationContext());
+        String oldPassword = prefManager.getPassword();
+        return oldPassword.equals(password);
+    }
+
     //Signs out and starts login activity
     private void signOut() {
         /*
         userLocalStore.clearUserData();
         userLocalStore.setUserLoggedIn(false);
          */
-        User registeredUser = new User(newPassword.getText().toString().trim());
+        PrefManager prefManager = new PrefManager(getApplicationContext());
+        prefManager.setPassword(newPassword.getText().toString().trim());
         Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
-        loginActivity.putExtra("password", registeredUser.getPassword());
         startActivity(loginActivity);
         finish();
     }

@@ -1,11 +1,10 @@
-package com.example.safeShibaDogeMoonInu;
+package com.example.RelyMe;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -36,7 +35,6 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     NavigationView navigationView;
     Toolbar toolbar;
     ActionBarDrawerToggle toggle;
-    UserLocalStore userLocalStore;
     String registeredPassWord;
 
     ListView walletListView;
@@ -76,13 +74,12 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        userLocalStore = new UserLocalStore(this);
-
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-
-        if (bundle != null)
-            registeredPassWord = (String) bundle.get("password");
+//        Intent intent = getIntent();
+//        Bundle bundle = intent.getExtras();
+        PrefManager prefManager = new PrefManager(getApplicationContext());
+        registeredPassWord = prefManager.getPassword();
+//        if (bundle != null)
+//            registeredPassWord = (String) bundle.get("password");
 
         walletListView = findViewById(R.id.walletListView);
         walletEditText = findViewById(R.id.walletText);
@@ -182,14 +179,6 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
     }
 
-    private boolean authenticate() {
-        return userLocalStore.getUserLoggedIn();
-    }
-
-    private void displayUserDetails() {
-        User user = userLocalStore.getLoggedInUser();
-    }
-
     //If Navigation Drawer is open and if back button pressed
     @Override
     public void onBackPressed() {
@@ -210,12 +199,10 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                 break;
             case R.id.nav_settings:  //If Settings field is clicked, starts SettingsActivity
                 Intent settings = new Intent(ProfileActivity.this, SettingsActivity.class);
-                settings.putExtra("password", registeredPassWord);
                 startActivity(settings);
                 break;
             case R.id.nav_about:              //If About field is clicked, starts AboutActivity
                 Intent about = new Intent(ProfileActivity.this, AboutActivity.class);
-                about.putExtra("password", registeredPassWord);
                 startActivity(about);
                 break;
             case R.id.nav_sign_out: //If Sign Out field is clicked, starts LoginActivity
@@ -237,7 +224,6 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         userLocalStore.setUserLoggedIn(false);
          */
         Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
-        loginActivity.putExtra("password", registeredPassWord);
         startActivity(loginActivity);
         finish();
     }
