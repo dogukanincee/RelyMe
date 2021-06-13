@@ -2,9 +2,9 @@
 RelyMe is a secure app that helps you to store your blockchain wallet's address and private key.
 
 # Contributors
-   * Doğukan İnce
-   * Muhammed Abbas
-   * Ahmet Burak Karadoğan
+   * 20170808077, Doğukan İnce
+   * 20170808063, Muhammed Abbas
+   * 20170808053, Ahmet Burak Karadoğan
 
 
 # Youtube Link
