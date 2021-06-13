@@ -1,9 +1,7 @@
 package com.example.safeShibaDogeMoonInu;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -16,7 +14,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -92,6 +89,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
             if (!(walletEditText.getText().length() <= 1)) {
                 wallet = walletEditText.getText().toString();
                 //TODO: Write and store the encrypted version of wallet instead of the wallet itself
+                showMessage(wallet + " has been added");
                 walletArrayList.add(wallet);
                 arrayAdapter.notifyDataSetChanged();
                 walletEditText.setText("");
@@ -120,9 +118,9 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
         walletListView.setOnItemLongClickListener((parent, view, position, id) -> {
             index = position;
+            showMessage(parent.getItemAtPosition(position).toString() + " has deleted");
             arrayAdapter.remove(parent.getItemAtPosition(position).toString());
             arrayAdapter.notifyDataSetChanged();
-            showMessage(parent.getItemAtPosition(position).toString() + " has deleted");
             return false;
         });
     }
@@ -182,7 +180,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
     //Shows a toast message
     private void showMessage(String text) {
-        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 
     //Signs out and starts login activity
