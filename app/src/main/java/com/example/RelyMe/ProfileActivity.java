@@ -148,6 +148,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         walletListView.setOnItemLongClickListener((parent, view, position, id) -> {
             showMessage(parent.getItemAtPosition(position).toString() + " is deleted");
             index = position;
+            prefManager.deleteWallet(parent.getItemAtPosition(position).toString());
             arrayAdapter.remove(parent.getItemAtPosition(position).toString());
             arrayAdapter.notifyDataSetChanged();
             return false;

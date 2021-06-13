@@ -20,7 +20,7 @@ public class PrefManager {
     public void addWallet(String label, String wallet) {
         String labels = pref.getString("labels", null);
         if (labels != null) {
-            Log.w("NNN", "not null, label: " +label  + "\nwallet: "+wallet);
+            Log.w("NNN", "not null, label: " + label + "\nwallet: " + wallet);
             labels = labels + label + "\n";
             editor.putString("labels", labels);
             editor.putString(label, wallet);
@@ -31,6 +31,12 @@ public class PrefManager {
             editor.putString(label, wallet);
             editor.apply();
         }
+    }
+
+    public void deleteWallet(String data) {
+        String label = data.split("\n")[0];
+        editor.remove(label);
+        editor.apply();
     }
 
     public ArrayList<String> getWallets() {
