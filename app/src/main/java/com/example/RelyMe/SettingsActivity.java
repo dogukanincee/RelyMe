@@ -137,10 +137,6 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
 
     //Signs out and starts login activity
     private void signOut() {
-        /*
-        userLocalStore.clearUserData();
-        userLocalStore.setUserLoggedIn(false);
-         */
         PrefManager prefManager = new PrefManager(getApplicationContext());
         prefManager.setPassword(newPassword.getText().toString().trim());
         Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);

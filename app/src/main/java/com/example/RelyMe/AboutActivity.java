@@ -106,10 +106,6 @@ public class AboutActivity extends AppCompatActivity implements NavigationView.O
 
     //Signs out and starts login activity
     private void signOut() {
-        /*
-        userLocalStore.clearUserData();
-        userLocalStore.setUserLoggedIn(false);
-         */
         Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(loginActivity);
         finish();

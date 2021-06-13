@@ -54,13 +54,8 @@ public class LoginActivity extends AppCompatActivity {
 
         userPassword.addTextChangedListener(loginTextWatcher);
 
-//        Intent intent = getIntent();
-//        Bundle bundle = intent.getExtras();
         PrefManager prefManager = new PrefManager(getApplicationContext());
         registeredPassWord = prefManager.getPassword();
-
-//        if (bundle != null)
-//            registeredPassWord = (String) bundle.get("password");
 
         BiometricManager biometricManager = BiometricManager.from(this);
 

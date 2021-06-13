@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -23,6 +24,7 @@ import com.jaeger.library.StatusBarUtil;
 
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 import javax.crypto.Cipher;
@@ -42,7 +44,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     EditText walletLabelEditText;
     Button encryptButton;
     Button decryptButton;
-    ArrayList<String> walletArrayList = new ArrayList<>();
+    ArrayList<String> walletArrayList;
     ArrayAdapter<String> arrayAdapter;
 
     String walletLabel;
@@ -76,12 +78,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-//        Intent intent = getIntent();
-//        Bundle bundle = intent.getExtras();
         PrefManager prefManager = new PrefManager(getApplicationContext());
         registeredPassWord = prefManager.getPassword();
-//        if (bundle != null)
-//            registeredPassWord = (String) bundle.get("password");
 
         walletListView = findViewById(R.id.walletListView);
         walletEditText = findViewById(R.id.walletText);
@@ -89,6 +87,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         encryptButton = findViewById(R.id.encryptButton);
         decryptButton = findViewById(R.id.decryptButton);
 
+        walletArrayList = new ArrayList<>(prefManager.getWallets());
+        Log.w("NNN", Arrays.toString(walletArrayList.toArray()));
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, walletArrayList);
         walletListView.setAdapter(arrayAdapter);
 
@@ -99,6 +99,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                 //TODO: Write and store the encrypted version of wallet instead of the wallet itself
                 try {
                     String encryptedString = encrypt(wallet, registeredPassWord);
+                    prefManager.addWallet(walletLabel, encryptedString);
                     walletArrayList.add(walletLabel + "\n" + encryptedString);
                     arrayAdapter.notifyDataSetChanged();
                     walletEditText.setText("");
@@ -135,8 +136,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
             index = position;
             showMessage(parent.getItemAtPosition(position).toString() + " is selected");
             runOnUiThread(() -> {
-                String label=parent.getItemAtPosition(position).toString().split("\n")[0];
-                String wallet=parent.getItemAtPosition(position).toString().split("\n")[1];
+                String label = parent.getItemAtPosition(position).toString().split("\n")[0];
+                String wallet = parent.getItemAtPosition(position).toString().split("\n")[1];
                 walletEditText.setText(wallet);
                 walletEditText.invalidate();
                 walletLabelEditText.setText(label);
@@ -181,23 +182,13 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         return secretKeySpec;
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        /*
-        if (authenticate()) displayUserDetails();
-        else signOut();
-        */
-
-    }
-
     //If Navigation Drawer is open and if back button pressed
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            finish();
         }
     }
 
@@ -231,10 +222,6 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
     //Signs out and starts login activity
     private void signOut() {
-        /*
-        userLocalStore.clearUserData();
-        userLocalStore.setUserLoggedIn(false);
-         */
         Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(loginActivity);
         finish();

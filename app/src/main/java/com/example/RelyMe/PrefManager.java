@@ -2,6 +2,9 @@ package com.example.RelyMe;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
+
+import java.util.ArrayList;
 
 public class PrefManager {
 
@@ -13,6 +16,42 @@ public class PrefManager {
         editor = pref.edit();
         editor.apply();
     }
+
+    public void addWallet(String label, String wallet) {
+        String labels = pref.getString("labels", null);
+        if (labels != null) {
+            Log.w("NNN", "not null, label: " +label  + "\nwallet: "+wallet);
+            labels = labels + label + "\n";
+            editor.putString("labels", labels);
+            editor.putString(label, wallet);
+            editor.apply();
+        } else {
+            Log.w("NNN", "null asf");
+            editor.putString("labels", label + "\n");
+            editor.putString(label, wallet);
+            editor.apply();
+        }
+    }
+
+    public ArrayList<String> getWallets() {
+        ArrayList<String> walletsList = new ArrayList<>();
+        String labels = pref.getString("labels", null);
+        if (labels != null) {
+            Log.w("NNN get", "not null");
+            String[] labelsArray = labels.split("\n");
+            for (int i = 0; i < labelsArray.length; i++) {
+                String wallet = pref.getString(labelsArray[i], null);
+                if (wallet != null) {
+                    Log.w("NNN get", "label:" + labelsArray[i] + "\nwallet:" + wallet);
+                    walletsList.add(labelsArray[i] + "\n" + wallet);
+                }
+            }
+        } else {
+            Log.w("NNN", "null afff");
+        }
+        return walletsList;
+    }
+
     public String getPassword() {
         String password = pref.getString("password", null);
         if (password != null) {
@@ -39,7 +78,7 @@ public class PrefManager {
         editor.apply();
     }
 
-    public boolean isRegistered(){
+    public boolean isRegistered() {
         return pref.getBoolean("registered", false);
     }
 }
