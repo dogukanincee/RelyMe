@@ -94,9 +94,12 @@ public class LoginActivity extends AppCompatActivity {
                     super.onAuthenticationSucceeded(result);
                     showMessage("Login Success with fingerprint");
                     updateUI();
-                }
-                else
+                } else {
                     showMessage("Please Sign Up first!");
+                    Intent registerActivity = new Intent(getApplicationContext(), RegisterActivity.class);
+                    startActivity(registerActivity);
+                    finish();
+                }
             }
 
             @Override
