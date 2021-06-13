@@ -13,7 +13,7 @@ In the real world, we don't store our cash in plain sight. We either store it in
   * If you would like to see your 12-word phrase or your private key, press the decrypt button and enter the wallet label you want to decrypt.
 # Login Options
  * Once you create your password, you can add new login options such as:
-  * Face Recognition
-  * Fingerprint
+   * Face Recognition
+   * Fingerprint
 # Forgot Password
-If you forgot your password, you can use biometrics(fingerprint or face recognition) to login. If you did not activate any of those, your information cannot be reached and lost forever.
+If you forgot your password, you can use biometrics(fingerprint or face recognition) to login and change your password from settings. If you did not activate any of those, your information cannot be reached and lost forever.
