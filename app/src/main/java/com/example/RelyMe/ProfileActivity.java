@@ -39,11 +39,13 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
     ListView walletListView;
     EditText walletEditText;
+    EditText walletLabelEditText;
     Button encryptButton;
     Button decryptButton;
     ArrayList<String> walletArrayList = new ArrayList<>();
     ArrayAdapter<String> arrayAdapter;
 
+    String walletLabel;
     Integer index;
     String wallet;
     String AES = "AES";
@@ -83,6 +85,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
         walletListView = findViewById(R.id.walletListView);
         walletEditText = findViewById(R.id.walletText);
+        walletLabelEditText = findViewById(R.id.walletLabel);
         encryptButton = findViewById(R.id.encryptButton);
         decryptButton = findViewById(R.id.decryptButton);
 
@@ -91,14 +94,16 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
         encryptButton.setOnClickListener(v -> {
             wallet = walletEditText.getText().toString();
-            if (!(wallet.length() <= 1)) {
+            walletLabel = walletLabelEditText.getText().toString();
+            if ((!(wallet.length() <= 1) && !(walletLabel.length() <= 1))) {
                 //TODO: Write and store the encrypted version of wallet instead of the wallet itself
                 try {
                     String encryptedString = encrypt(wallet, registeredPassWord);
-                    walletArrayList.add(encryptedString);
+                    walletArrayList.add(walletLabel + "\n" + encryptedString);
                     arrayAdapter.notifyDataSetChanged();
                     walletEditText.setText("");
-                    showMessage(wallet + " has been added");
+                    walletLabelEditText.setText("");
+                    showMessage(walletLabel + " has been encrypted");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -107,15 +112,18 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
         decryptButton.setOnClickListener(v -> {
             wallet = walletEditText.getText().toString();
-            if (!(wallet.length() <= 1)) {
+            walletLabel = walletLabelEditText.getText().toString();
+            if ((!(wallet.length() <= 1) && !(walletLabel.length() <= 1))) {
                 //TODO: Check first if the written / copied text is stored in json. Do only if it exist.
                 //TODO: Decrypt the wallet selected and update in both json and listView by directly showing the wallet
                 try {
                     String decryptedString = decrypt(wallet, registeredPassWord);
                     arrayAdapter.remove(walletArrayList.get(index));
-                    walletArrayList.add(decryptedString);
+                    walletArrayList.add(walletLabel + "\n" + decryptedString);
                     arrayAdapter.notifyDataSetChanged();
                     walletEditText.setText("");
+                    walletLabelEditText.setText("");
+                    showMessage(walletLabel + " has been decrypted");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -123,12 +131,16 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         });
 
         walletListView.setOnItemClickListener((parent, view, position, id) -> {
+            walletLabel = walletLabelEditText.getText().toString();
             index = position;
             showMessage(parent.getItemAtPosition(position).toString() + " is selected");
-
             runOnUiThread(() -> {
-                walletEditText.setText(parent.getItemAtPosition(position).toString());
+                String label=parent.getItemAtPosition(position).toString().split("\n")[0];
+                String wallet=parent.getItemAtPosition(position).toString().split("\n")[1];
+                walletEditText.setText(wallet);
                 walletEditText.invalidate();
+                walletLabelEditText.setText(label);
+                walletLabelEditText.invalidate();
             });
         });
 

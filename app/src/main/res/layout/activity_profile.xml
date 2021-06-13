@@ -27,6 +27,16 @@
             android:layout_marginBottom="10dp"/>
 
         <EditText
+            android:id="@+id/walletLabel"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="Enter wallet label"
+            android:inputType="text"
+            android:layout_marginBottom="10dp"/>
+
+        <EditText
             android:id="@+id/walletText"
             android:layout_width="match_parent"
             android:layout_height="50dp"

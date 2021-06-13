@@ -11,6 +11,7 @@ public class PrefManager {
     public PrefManager(Context context) {
         pref = context.getSharedPreferences("PROJECT_NAME", Context.MODE_PRIVATE);
         editor = pref.edit();
+        editor.apply();
     }
     public String getPassword() {
         String password = pref.getString("password", null);

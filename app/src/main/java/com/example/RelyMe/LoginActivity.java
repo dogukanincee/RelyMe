@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText userPassword;
     String registeredPassWord;
-    private Button btnLogin, registerButton, fingerprintButton;   //Login, register and reset passwords buttons
+    private Button btnLogin, registerButton, biometricsButton;   //Login, register and reset passwords buttons
     //If all fields are filled, then login button enables
     private final TextWatcher loginTextWatcher = new TextWatcher() {
         @Override
@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         userPassword = findViewById(R.id.login_password);
         btnLogin = findViewById(R.id.loginBtn);
         registerButton = findViewById(R.id.registerButton);
-        fingerprintButton = findViewById(R.id.fingerprintButton);
+        biometricsButton = findViewById(R.id.biometricsButton);
 
         userPassword.addTextChangedListener(loginTextWatcher);
 
@@ -66,16 +66,16 @@ public class LoginActivity extends AppCompatActivity {
 
         int i = biometricManager.canAuthenticate();
         if (i == BiometricManager.BIOMETRIC_SUCCESS) {
-            showMessage("You can use fingerprints");
+            showMessage("You can use biometrics");
         } else if (i == BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE) {
-            showMessage("You do not have fingerprint sensor");
-            fingerprintButton.setVisibility(View.GONE);
+            showMessage("You do not have biometric sensor");
+            biometricsButton.setVisibility(View.GONE);
         } else if (i == BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE) {
             showMessage("Sensor is unavailable");
-            fingerprintButton.setVisibility(View.GONE);
+            biometricsButton.setVisibility(View.GONE);
         } else if (i == BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED) {
-            showMessage("You do not have any saved fingerprints");
-            fingerprintButton.setVisibility(View.GONE);
+            showMessage("You do not have any biometric data");
+            biometricsButton.setVisibility(View.GONE);
         }
 
         Executor executor = ContextCompat.getMainExecutor(this);
@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 if (registeredPassWord != null) {
                     super.onAuthenticationSucceeded(result);
-                    showMessage("Login Success with fingerprint");
+                    showMessage("Login Success with biometrics");
                     updateUI();
                 } else {
                     showMessage("Please Sign Up first!");
@@ -106,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder().setTitle("Login").setDescription("Use fingerprint to log in the app").setNegativeButtonText("Cancel").build();
+        BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder().setTitle("Login").setDescription("Use biometrics to log in the app").setNegativeButtonText("Cancel").build();
 
 
         //If login button is clicked, tries to log in
@@ -135,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         });
 
-        fingerprintButton.setOnClickListener(v -> {
+        biometricsButton.setOnClickListener(v -> {
             biometricPrompt.authenticate(promptInfo);
         });
     }

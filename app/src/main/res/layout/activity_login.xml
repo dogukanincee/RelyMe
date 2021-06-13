@@ -63,13 +63,13 @@
         app:layout_constraintVertical_bias="0.979" />
 
     <Button
-        android:id="@+id/fingerprintButton"
+        android:id="@+id/biometricsButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:background="@null"
-        android:text="@string/sign_in_with_fingerprint_instead"
+        android:text="@string/sign_in_with_biometrics_instead"
         android:textAllCaps="false"
         android:textColor="#1695f0"
         app:layout_constraintBottom_toBottomOf="parent"
